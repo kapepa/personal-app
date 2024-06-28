@@ -1,0 +1,28 @@
+.product {
+  width: 250px;
+
+  &__img {
+    aspect-ratio: 1;
+    object-fit: contain;
+    width: 100%;
+    border-radius: 15px;
+    background-color: gray;
+  }
+  &__row{
+    display: flex;
+    gap: 10px;
+    align-items: end;
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  &__price-label {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  &__price {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
