@@ -3,7 +3,12 @@ import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   {
-    path: "home",
-    component: HomeComponent,
+    path: "",
+    children: [
+      {
+        path: "home",
+        component: HomeComponent,
+      }
+    ]
   }
 ];
