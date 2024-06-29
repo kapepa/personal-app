@@ -30,4 +30,19 @@
     [readonly]="true"
     iconCancelClass="hidden"
   />
+  <div
+    class="row gap-1"
+  >
+    <p-button
+      label="Edit"
+      type="button"
+      (click)="editProduct()"
+    />
+    <p-button
+      label="Delete"
+      type="button"
+      severity="danger"
+      (click)="deleteProduct()"
+    />
+  </div>
 </div>
