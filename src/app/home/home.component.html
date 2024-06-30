@@ -12,7 +12,7 @@
   >
     <app-product
       *ngFor="let product of products" 
-      [product]="redefine(product)"
+      [product]="product"
       (edit)="onToggleEditPopup($event)"
       (delete)="onToggleDeletePopup($event)"
     />
