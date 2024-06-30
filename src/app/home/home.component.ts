@@ -9,7 +9,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CreateDto } from '../../dto/create-dto';
 import { UpdateDto } from '../../dto/update-dto';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +24,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  isLoading: boolean = false;
   rows: number = 5;
   totalRecords: number = 0;
   products: ProductInt[] = [];
@@ -82,11 +82,15 @@ export class HomeComponent {
   }
 
   fetchProducts ({page, perPage}: {page: number, perPage: number}) {
+    const emptyCell: number = 4;
+    const emptyProduct = new Array(emptyCell).fill(undefined);
+    this.products.push(...emptyProduct)
     this.productsService.getProducts({
       page, perPage,
     })
     .subscribe((products: ProductsResInt) => {
-      this.products = products.items;
+      this.products.splice(-emptyCell);
+      this.products = this.products.concat(products.items);
       this.totalRecords = products.total;
     })
   }

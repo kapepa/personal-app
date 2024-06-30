@@ -1,15 +1,20 @@
 <div
+  *ngIf="getSkeleton; else skeleton"
   class="column gap-1 wrapper product"
 >
   <img
-    [src]="product.image"
+    [ngSrc]="product!.image"
     alt="product thumbnail"
     class="max-250 product__img"
+    width="200"
+    height="200"
+    priority
+    appOptimizedImage
   />
   <h2
     class="product__title"
   >
-    {{product.name}}
+    {{product!.name}}
   </h2>
   <div
     class="product__row"
@@ -22,11 +27,11 @@
     <span
       class="product__price"
     >
-      {{product.price}}
+      {{product!.price}}
     </span>
   </div>
   <p-rating 
-    [(ngModel)]="product.rating" 
+    [(ngModel)]="product!.rating" 
     [readonly]="true"
     iconCancelClass="hidden"
   />
@@ -46,3 +51,47 @@
     />
   </div>
 </div>
+
+<ng-template #skeleton>
+  <div
+    class="column gap-1 wrapper product"
+  >
+    <p-skeleton 
+      width="15.7rem" 
+      height="15.7rem"
+      borderRadius="15px" 
+    />
+    <p-skeleton 
+      width="10rem" 
+      height="1.7rem"
+    />
+    <div
+      class="product__row"
+    >
+      <p-skeleton 
+        width="3rem" 
+        height="1.4rem"
+      />
+      <p-skeleton 
+        width="4rem" 
+        height="1.7rem"
+      />
+    </div>
+    <p-skeleton 
+      width="10rem" 
+      height="1.4rem"
+    />
+    <div
+      class="row gap-1"
+    >
+      <p-skeleton 
+        width="4.7rem" 
+        height="2.5rem"
+      />
+      <p-skeleton 
+      width="5.2rem" 
+      height="2.5rem"
+    />
+    </div>
+  </div>
+</ng-template>

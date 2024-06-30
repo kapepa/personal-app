@@ -3,6 +3,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ProductInt } from '../../../../types/products-int';
 import { FormsModule } from '@angular/forms';
 
@@ -15,6 +18,9 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     DialogModule,
     CommonModule,
+    InputTextModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   templateUrl: './edit-popup.component.html',
   styleUrl: './edit-popup.component.scss'

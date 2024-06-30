@@ -10,42 +10,56 @@
     <div
       class="row gap-05"
     >
-      <span
-        class="price-label"
-      >
-        Name:
-      </span>
-      <input
-        type="text"
-        placeholder="Product name"
-        [(ngModel)]="product.name"
-      />
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <span
+          class="price-label"
+        >
+          Name:
+        </span>
+        </p-inputGroupAddon>
+        <input
+          type="text"
+          pInputText
+          placeholder="Product name"
+          [(ngModel)]="product.name"
+        />
+      </p-inputGroup>
     </div>
     <div
       class="row gap-05"
     >
-      <span
-        class="price-label"
-      >
-        Price:
-      </span>
-      <input
-        type="text"
-        placeholder="Product price"
-        [(ngModel)]="product.price"
-      />
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <span
+            class="price-label"
+          >
+            Price:
+          </span>
+        </p-inputGroupAddon>
+        <input
+          type="text"
+          pInputText
+          placeholder="Product price"
+          [(ngModel)]="product.price"
+        />
+      </p-inputGroup>
     </div>
     <div
       class="row gap-05"
     >
-      <span
-        class="price-label"
-      >
-        Raiting:
-      </span>
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <span
+          class="price-label"
+        >
+          Raiting:
+        </span>
+      </p-inputGroupAddon>
       <p-rating 
         [(ngModel)]="product.rating" 
       />
+    </p-inputGroup>
     </div>
   </div>
   <div 
