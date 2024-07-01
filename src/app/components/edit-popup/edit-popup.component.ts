@@ -8,6 +8,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ProductInt } from '../../../../types/products-int';
 import { FormsModule } from '@angular/forms';
+import { LoadImageComponent } from '../load-image/load-image.component';
 
 @Component({
   selector: 'app-edit-popup',
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     InputTextModule,
     InputGroupModule,
-    InputGroupAddonModule
+    LoadImageComponent,
+    InputGroupAddonModule,
   ],
   templateUrl: './edit-popup.component.html',
   styleUrl: './edit-popup.component.scss'

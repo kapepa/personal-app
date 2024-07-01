@@ -37,6 +37,10 @@ app-root{
   flex-direction: column;
 }
 
+.grid {
+  display: grid;
+}
+
 .mt-15 {
   margin-top: 15px;
 }
@@ -63,6 +67,26 @@ app-root{
 
 .gap-2 {
   gap: 2rem;
+}
+
+.column-gap-1 {
+  column-gap: 1rem;
+}
+
+.row-gap-1 {
+  row-gap: 1rem;
+}
+
+.column-gap-2 {
+  column-gap: 2rem;
+}
+
+.row-gap-2 {
+  row-gap: 2rem;
+}
+
+.pb-1{
+  padding-bottom: 1rem;
 }
 
 .space-between {
@@ -92,3 +116,6 @@ app-root{
   object-fit: cover;
 }
 
+.button-stretch {
+  width: 100%;
+}

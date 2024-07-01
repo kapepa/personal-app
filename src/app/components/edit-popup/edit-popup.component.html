@@ -4,74 +4,78 @@
   [(visible)]="visible" 
   [style]="{ width: '25rem' }"
 >
+  <div>
+    <app-load-image
+      [src]="product.image"
+      [alt]="product.name"
+    />
+  </div>
   <div
-    class="column gap-1"
+    class="column gap-1 pb-1 edit-popup__gried"
   >
-    <div
-      class="row gap-05"
+    <p-inputGroupAddon
+      class="edit-popup__label"
     >
-      <p-inputGroup>
-        <p-inputGroupAddon>
-          <span
-          class="price-label"
-        >
-          Name:
-        </span>
-        </p-inputGroupAddon>
-        <input
-          type="text"
-          pInputText
-          placeholder="Product name"
-          [(ngModel)]="product.name"
-        />
-      </p-inputGroup>
-    </div>
-    <div
-      class="row gap-05"
+      <span
+        class="price-label"
+      >
+        Name:
+      </span>
+    </p-inputGroupAddon>
+    <input
+      type="text"
+      class="edit-popup__input"
+      pInputText
+      placeholder="Product name"
+      [(ngModel)]="product.name"
+    />
+    <p-inputGroupAddon
+      class="edit-popup__label"
     >
-      <p-inputGroup>
-        <p-inputGroupAddon>
-          <span
-            class="price-label"
-          >
-            Price:
-          </span>
-        </p-inputGroupAddon>
-        <input
-          type="text"
-          pInputText
-          placeholder="Product price"
-          [(ngModel)]="product.price"
-        />
-      </p-inputGroup>
-    </div>
-    <div
-      class="row gap-05"
+      <span
+        class="price-label"
+      >
+        Price:
+      </span>
+    </p-inputGroupAddon>
+    <input
+      type="text"
+      class="edit-popup__input"
+      pInputText
+      placeholder="Product price"
+      [(ngModel)]="product.price"
+    />
+    <p-inputGroupAddon
+    class="edit-popup__label"
     >
-    <p-inputGroup>
-      <p-inputGroupAddon>
-        <span
-          class="price-label"
-        >
-          Raiting:
-        </span>
-      </p-inputGroupAddon>
+      <span
+        class="price-label"
+      >
+        Raiting:
+      </span>
+    </p-inputGroupAddon>
+    <div
+      class="edit-popup__frame"
+      >
       <p-rating 
         [(ngModel)]="product.rating" 
       />
-    </p-inputGroup>
     </div>
   </div>
   <div 
-    class="flex justify-content-end gap-2"
+    class="edit-popup__btns"
   >
       <p-button 
-        label="Cancel" 
+        label="Cancel"
+        class="edit-popup__btn"
+        styleClass="button-stretch"
         severity="secondary" 
         (click)="visible = false"
       />
       <p-button 
         label="Save" 
+        class="edit-popup__btn"
+        styleClass="button-stretch"
         (click)="visible = false" 
       />
   </div>
