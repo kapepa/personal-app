@@ -1,82 +1,87 @@
-<p-dialog 
-  [header]="header"
-  [modal]="true"
-  [(visible)]="visible" 
-  [style]="{ width: '25rem' }"
+<div
+  (click)="onLayout($event)"
 >
-  <div>
-    <app-load-image
-      [src]="product.image"
-      [alt]="product.name"
-    />
-  </div>
-  <div
-    class="column gap-1 pb-1 edit-popup__gried"
+  <p-dialog 
+    [header]="header"
+    [modal]="true"
+    [(visible)]="visible" 
+    [style]="{ width: '25rem'  }"
   >
-    <p-inputGroupAddon
-      class="edit-popup__label"
-    >
-      <span
-        class="price-label"
-      >
-        Name:
-      </span>
-    </p-inputGroupAddon>
-    <input
-      type="text"
-      class="edit-popup__input"
-      pInputText
-      placeholder="Product name"
-      [(ngModel)]="product.name"
-    />
-    <p-inputGroupAddon
-      class="edit-popup__label"
-    >
-      <span
-        class="price-label"
-      >
-        Price:
-      </span>
-    </p-inputGroupAddon>
-    <input
-      type="text"
-      class="edit-popup__input"
-      pInputText
-      placeholder="Product price"
-      [(ngModel)]="product.price"
-    />
-    <p-inputGroupAddon
-    class="edit-popup__label"
-    >
-      <span
-        class="price-label"
-      >
-        Raiting:
-      </span>
-    </p-inputGroupAddon>
-    <div
-      class="edit-popup__frame"
-      >
-      <p-rating 
-        [(ngModel)]="product.rating" 
+    <div>
+      <app-load-image
+        [src]="product.image"
+        [alt]="product.name"
+        (changeImage)="onChangeField($event)"
       />
     </div>
-  </div>
-  <div 
-    class="edit-popup__btns"
-  >
-      <p-button 
-        label="Cancel"
-        class="edit-popup__btn"
-        styleClass="button-stretch"
-        severity="secondary" 
-        (click)="visible = false"
+    <div
+      class="column gap-1 pb-1 edit-popup__gried"
+    >
+      <p-inputGroupAddon
+        class="edit-popup__label"
+      >
+        <span
+          class="price-label"
+        >
+          Name:
+        </span>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        class="edit-popup__input"
+        pInputText
+        placeholder="Product name"
+        [(ngModel)]="product.name"
       />
-      <p-button 
-        label="Save" 
-        class="edit-popup__btn"
-        styleClass="button-stretch"
-        (click)="visible = false" 
+      <p-inputGroupAddon
+        class="edit-popup__label"
+      >
+        <span
+          class="price-label"
+        >
+          Price:
+        </span>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        class="edit-popup__input"
+        pInputText
+        placeholder="Product price"
+        [(ngModel)]="product.price"
       />
-  </div>
-</p-dialog>
+      <p-inputGroupAddon
+      class="edit-popup__label"
+      >
+        <span
+          class="price-label"
+        >
+          Raiting:
+        </span>
+      </p-inputGroupAddon>
+      <div
+        class="edit-popup__frame"
+        >
+        <p-rating 
+          [(ngModel)]="product.rating" 
+        />
+      </div>
+    </div>
+    <div 
+      class="edit-popup__btns"
+    >
+        <p-button 
+          label="Cancel"
+          class="edit-popup__btn"
+          styleClass="button-stretch"
+          severity="secondary" 
+          (click)="visible = false"
+        />
+        <p-button 
+          label="Save" 
+          class="edit-popup__btn"
+          styleClass="button-stretch"
+          (click)="visible = false" 
+        />
+    </div>
+  </p-dialog>
+</div>

@@ -1,12 +1,26 @@
-<img
-  [ngSrc]="src"
-  [alt]="alt"
-  [ngClass]="customClass"
+<div
+  *ngIf="!!src"
+  (click)="onSelectImage()"
+  class="load-image px-2 py-2 mb-2"
+>
+  <img
+    #imageView
+    [ngSrc]="src"
+    [alt]="alt"
+    [ngClass]="customClass"
 
-  alt="product thumbnail"
-  class="max-250 product__img"
-  width="200"
-  height="200"
-  priority
-  appOptimizedImage
+    alt="product thumbnail"
+    class="max-250 product__img"
+    width="200"
+    height="200"
+    priority
+    appOptimizedImage
+  />
+</div>
+
+<input
+  #inputFile
+  type="file"
+  class="load-image__input" 
+  (change)="onChangeImage($event)"
 />

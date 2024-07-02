@@ -43,6 +43,15 @@ export class EditPopupComponent {
     rating: 0
   }
 
+  onLayout (event: Event) {
+    const element = (event.target as HTMLElement).classList.contains("p-component-overlay")
+    if (element) this.visibleChange.emit();
+  }
+
+  onChangeField (product: Partial<Omit<ProductInt, "image">> & { image?: File | string  }) {
+    console.log(product)
+  }
+
   showDialog() {
 
   }

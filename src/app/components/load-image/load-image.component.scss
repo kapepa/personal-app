@@ -1,0 +1,15 @@
+.load-image {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: #3B82F6;
+  }
+  &__input {
+    display: none;
+  }
+}
