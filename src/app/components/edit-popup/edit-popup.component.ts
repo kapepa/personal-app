@@ -48,7 +48,7 @@ export class EditPopupComponent {
     if (element) this.visibleChange.emit();
   }
 
-  onChangeField (product: Partial<Omit<ProductInt, "image">> & { image?: File | string  }) {
+  onChangeField (product: Partial<Omit<ProductInt, "image">> & { image?: File | string }) {
     console.log(product)
   }
 

@@ -14,7 +14,7 @@
       *ngFor="let product of products" 
       [product]="product"
       (edit)="onToggleEditPopup($event)"
-      (delete)="onToggleDeletePopup($event)"
+      (delete)="confirmationDelete($event)"
     />
   </div>
   <p-paginator 
@@ -24,6 +24,22 @@
     [rowsPerPageOptions]="[5, 10, 15]" 
   />
 </div>
+
+<div
+  (click)="onLayoutConfirmation($event)"
+>
+  <p-confirmDialog
+    #confirmDialog
+  >
+    <ng-template pTemplate="message" let-message>
+      <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</div>
+
 
 <app-edit-popup
   [product]="selectedProduct"
