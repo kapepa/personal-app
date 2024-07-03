@@ -28,35 +28,21 @@ import { CommonModule } from '@angular/common';
       }
    },
     // provideImgixLoader(environment.apiStatic),
-    ConfirmationService,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
 export class ProductComponent {
-  constructor (
-    private confirmationService: ConfirmationService,
-  ) {}
-
   @Input() product: ProductInt | undefined;
   @Output() edit: EventEmitter<ProductInt> = new EventEmitter<ProductInt>()
-  @Output() delete: EventEmitter<string> = new EventEmitter<string>()
+  @Output() delete: EventEmitter<ProductInt> = new EventEmitter<ProductInt>()
   
   editProduct() {
     this.edit.emit(this.product)
   }
 
   deleteProduct() {
-    this.delete.emit(this.product?.id);
-  }
-
-  confirmationDelete() {
-    this.confirmationService.confirm({
-      message: "Are you sure that you want to delete this project",
-      accept: () => {
-        this.deleteProduct()
-      }
-    })
+    this.delete.emit(this.product);
   }
 
   get getSkeleton () {

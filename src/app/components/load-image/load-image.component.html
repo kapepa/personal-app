@@ -1,21 +1,47 @@
 <div
-  *ngIf="!!src"
   (click)="onSelectImage()"
   class="load-image px-2 py-2 mb-2"
 >
+  <div
+    *ngIf="isLoadedImage"
+    class="load-image__x-del"
+    title="Clear image"
+    (click)="onClearImage($event)"
+  ></div>
+
   <img
     #imageView
+    *ngIf="getShowSrc; else emptySrc"
     [ngSrc]="src"
     [alt]="alt"
     [ngClass]="customClass"
 
-    alt="product thumbnail"
     class="max-250 product__img"
     width="200"
     height="200"
     priority
     appOptimizedImage
   />
+
+  <ng-template #emptySrc>
+    <img
+      #imageView
+      *ngIf="!getShowEmpty"
+      [ngClass]="customClass"
+
+      class="max-250 product__img"
+      width="200"
+      height="200"
+    />
+  </ng-template>
+
+  <span
+    *ngIf="getShowEmpty"
+    class="load-image__empty-text"
+  >
+    Select image
+  </span>
+  
 </div>
 
 <input

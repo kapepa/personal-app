@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { ProductInt, ProductsResInt } from '../../../types/products-int';
 import { ProductComponent } from '../components/product/product.component';
@@ -8,7 +8,9 @@ import { environment } from '../../../environment';
 import { PaginatorModule } from 'primeng/paginator';
 import { CreateDto } from '../../dto/create-dto';
 import { UpdateDto } from '../../dto/update-dto';
+import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -19,19 +21,25 @@ import { EditPopupComponent } from '../components/edit-popup/edit-popup.componen
     PaginatorModule,
     ProductComponent,
     EditPopupComponent,
+    ConfirmDialogModule,
+  ],
+  providers: [
+    ConfirmationService,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  @ViewChild("confirmDialog") confirmDialog!: ConfirmDialog;
+
   isLoading: boolean = false;
   rows: number = 5;
   totalRecords: number = 0;
   products: ProductInt[] = [];
   apiStatic: string = environment.apiStatic;
 
-  visibleEditPopup: boolean = false
-  visibleAddPopup: boolean = false 
+  visibleEditPopup: boolean = false;
+  visibleAddPopup: boolean = false;
 
   selectedProduct: ProductInt =  {
     id: "",
@@ -43,6 +51,7 @@ export class HomeComponent {
 
   constructor (
     private productsService: ProductsService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit() {
@@ -56,11 +65,6 @@ export class HomeComponent {
 
   onToggleAddPopup () {
     this.visibleAddPopup = !this.visibleAddPopup;
-  }
-
-  onToggleDeletePopup (id: string) {
-    // this.selectedProduct = product;
-    // this.visibleEditPopup = !this.visibleEditPopup;
   }
 
   onConfirmEdit (product: ProductInt) {
@@ -95,9 +99,12 @@ export class HomeComponent {
     })
   }
 
-  redefine (product: ProductInt): ProductInt {
-    if (!product.image.startsWith(this.apiStatic)) product.image =  `${this.apiStatic}/${product.image}`
-    return product
+  onLayoutConfirmation (e: Event) {
+    const layout = (e.target as HTMLDivElement)
+    const hasClass = layout.classList.contains("p-dialog-mask")
+    if (hasClass) {
+      
+    }
   }
 
   onAddProduct (product: CreateDto) {
@@ -125,13 +132,23 @@ export class HomeComponent {
   }
 
   onDeleteProduct (id: string) {
-    this.productsService.deleteProduct(id)
-    .subscribe({
-      next: (bol: boolean) => {
+    console.log(id)
+    // this.productsService.deleteProduct(id)
+    // .subscribe({
+    //   next: (bol: boolean) => {
 
-      },
-      error: (err) => {
+    //   },
+    //   error: (err) => {
 
+    //   }
+    // })
+  }
+
+  confirmationDelete(product: ProductInt) {
+    this.confirmationService.confirm({
+      message: `Are you sure that you want to delete this ${product.name}`,
+      accept: () => {
+        this.onDeleteProduct(product.id);
       }
     })
   }
