@@ -74,13 +74,13 @@
           class="edit-popup__btn"
           styleClass="button-stretch"
           severity="secondary" 
-          (click)="visible = false"
+          (click)="onCancel()"
         />
         <p-button 
           label="Save" 
           class="edit-popup__btn"
           styleClass="button-stretch"
-          (click)="visible = false" 
+          (click)="onConfirm()" 
         />
     </div>
   </p-dialog>

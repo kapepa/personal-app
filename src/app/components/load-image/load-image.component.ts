@@ -2,8 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { ProductInt } from '../../../../types/products-int';
 import { CommonModule, IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage, provideImgixLoader } from '@angular/common';
 import { environment } from '../../../../environment';
+import { UpdateDto } from '../../../dto/update-dto';
 
-type SrcType = ProductInt["image"];
+type SrcType = UpdateDto["image"];
 type ChangeImage = { image: File | SrcType }
 
 @Component({
@@ -17,7 +18,6 @@ type ChangeImage = { image: File | SrcType }
     {
       provide: IMAGE_LOADER,
       useValue: (config: ImageLoaderConfig) => {
-        console.log(config.src)
         return `${environment.apiStatic}/${config.src}`;
       }
    },
@@ -26,7 +26,7 @@ type ChangeImage = { image: File | SrcType }
   styleUrl: './load-image.component.scss'
 })
 export class LoadImageComponent {
-  @Input() alt: string = "";
+  @Input() alt?: string = "";
   @Input() src: SrcType = "";
   @Input() customClass?: string;
   @Output() changeImage: EventEmitter<ChangeImage> = new EventEmitter<ChangeImage>();
