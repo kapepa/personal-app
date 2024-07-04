@@ -10,12 +10,15 @@ import { CreateDto } from '../../dto/create-dto';
 import { UpdateDto } from '../../dto/update-dto';
 import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { AddProduct, ConfirmProduct, DeleteProduct, EditProduct } from '../../interface/fn-interface';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    ToastModule,
     CommonModule,
     ButtonModule,
     PaginatorModule,
@@ -24,13 +27,14 @@ import { ConfirmationService } from 'primeng/api';
     ConfirmDialogModule,
   ],
   providers: [
+    MessageService,
     ConfirmationService,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  @ViewChild("confirmDialog") confirmDialog!: ConfirmDialog;
+  @ViewChild("dialog") Dialog!: ConfirmDialog;
 
   isLoading: boolean = false;
   rows: number = 5;
@@ -41,8 +45,9 @@ export class HomeComponent {
   visibleEditPopup: boolean = false;
   visibleAddPopup: boolean = false;
 
+  index: number | undefined = undefined;
   selectedProduct: ProductInt =  {
-    id: "",
+    id: '',
     name: '',
     image: '',
     price: '',
@@ -50,6 +55,7 @@ export class HomeComponent {
   };
 
   constructor (
+    private messageService: MessageService,
     private productsService: ProductsService,
     private confirmationService: ConfirmationService,
   ) {}
@@ -58,26 +64,27 @@ export class HomeComponent {
     this.fetchProducts({ page: 0, perPage: this.rows })
   }
 
-  onToggleEditPopup (product: ProductInt) {
-    this.selectedProduct = product;
-    this.visibleEditPopup = !this.visibleEditPopup;
-  }
-
   onToggleAddPopup () {
     this.visibleAddPopup = !this.visibleAddPopup;
   }
 
-  onConfirmEdit (product: ProductInt) {
-    this.onEditProduct(product);
-    this.visibleEditPopup = false
+  onToggleEditPopup ({ product, index }: EditProduct) {
+    this.index = !this.visibleEditPopup ? index : undefined;
+    this.selectedProduct = product;
+    this.visibleEditPopup = !this.visibleEditPopup;
   }
 
-  onConfirmAdd (product: Omit<ProductInt, "id">) {
-    this.onAddProduct(product);
+  onConfirmEdit ({ product, index }: ConfirmProduct) {
+    this.onEditProduct(product, index!);
+    this.visibleEditPopup = false;
+  }
+
+  onConfirmAdd ({ product }: ConfirmProduct) {
+    this.onAddProduct(product as CreateDto);
     this.visibleAddPopup = false;
   }
 
-  onProductOutput (product: ProductInt) {
+  onChangeProduct({ product, index }: EditProduct) {
 
   }
 
@@ -102,9 +109,7 @@ export class HomeComponent {
   onLayoutConfirmation (e: Event) {
     const layout = (e.target as HTMLDivElement)
     const hasClass = layout.classList.contains("p-dialog-mask")
-    if (hasClass) {
-      
-    }
+    if (hasClass) this.Dialog.reject()
   }
 
   onAddProduct (product: CreateDto) {
@@ -119,10 +124,25 @@ export class HomeComponent {
     })
   }
 
-  onEditProduct (product: UpdateDto) {
-    this.productsService.updateProduct(product)
+  onEditProduct (product: UpdateDto, index: number) {
+
+    console.log(product)
+    // this.productsService.updateProduct(product)
+    // .subscribe({
+    //   next: (product: ProductInt) => {
+    //     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' })
+    //     this.selectedProduct = product
+    //   },
+    //   error: (err) => {
+
+    //   }
+    // })
+  }
+
+  onDeleteProduct ({ id, index }: {id: string, index: number}) {
+    this.productsService.deleteProduct(id)
     .subscribe({
-      next: (product: ProductInt) => {
+      next: (bol: boolean) => {
 
       },
       error: (err) => {
@@ -131,24 +151,11 @@ export class HomeComponent {
     })
   }
 
-  onDeleteProduct (id: string) {
-    console.log(id)
-    // this.productsService.deleteProduct(id)
-    // .subscribe({
-    //   next: (bol: boolean) => {
-
-    //   },
-    //   error: (err) => {
-
-    //   }
-    // })
-  }
-
-  confirmationDelete(product: ProductInt) {
+  confirmationDelete({ product, index }: DeleteProduct) {
     this.confirmationService.confirm({
       message: `Are you sure that you want to delete this ${product.name}`,
       accept: () => {
-        this.onDeleteProduct(product.id);
+        this.onDeleteProduct({ id: product.id, index });
       }
     })
   }

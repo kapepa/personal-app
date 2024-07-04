@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage, provideImgixLoader } from '@angular/common'
 import { SkeletonModule } from 'primeng/skeleton';
-import { ConfirmationService } from 'primeng/api';
 import { environment } from '../../../../environment';
 import { CommonModule } from '@angular/common';
+import { DeleteProduct, EditProduct } from '../../../interface/fn-interface';
 
 @Component({
   selector: 'app-product',
@@ -34,15 +34,16 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductComponent {
   @Input() product: ProductInt | undefined;
-  @Output() edit: EventEmitter<ProductInt> = new EventEmitter<ProductInt>()
-  @Output() delete: EventEmitter<ProductInt> = new EventEmitter<ProductInt>()
+  @Input() index!: number;
+  @Output() edit: EventEmitter<EditProduct> = new EventEmitter<EditProduct>()
+  @Output() delete: EventEmitter<DeleteProduct> = new EventEmitter<DeleteProduct>()
   
   editProduct() {
-    this.edit.emit(this.product)
+    this.edit.emit({product: this.product!, index: this.index})
   }
 
   deleteProduct() {
-    this.delete.emit(this.product);
+    this.delete.emit({product: this.product!, index: this.index});
   }
 
   get getSkeleton () {
