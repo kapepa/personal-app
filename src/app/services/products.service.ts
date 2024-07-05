@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { PaginationParamsInt, ProductInt, ProductsResInt } from '../../../types/products-int';
 import { environment } from '../../../environment';
 import { CreateDto } from '../../dto/create-dto';
-import { UpdateDto } from '../../dto/update-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +26,7 @@ export class ProductsService {
     );
   }
 
-  createProduct = (body: CreateDto): Observable<ProductInt> => {
+  createProduct = (body: FormData): Observable<ProductInt> => {
     return this.apiService.post(
       this.apiUrl,
       body,
@@ -37,9 +36,9 @@ export class ProductsService {
     );
   }
 
-  updateProduct = (body: UpdateDto): Observable<ProductInt> => {
+  updateProduct = (id: string, body: FormData): Observable<ProductInt> => {
     return this.apiService.patch(
-      `${this.apiUrl}/${body.id}`,
+      `${this.apiUrl}/${id}`,
       body,
       {
         responseType: "json"

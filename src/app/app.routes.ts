@@ -10,5 +10,10 @@ export const routes: Routes = [
         component: HomeComponent,
       }
     ]
+  },
+  {
+    path: "about-us",
+    loadChildren: () => import("./modules/about-us/about-us.module")
+    .then((m) => m.AboutUsModule)
   }
 ];

@@ -19,15 +19,15 @@ export class ApiService {
     return this.httpClient.get<T>(url, options) as Observable<T>;
   }
 
-  post<T>(url: string, body: CreateDto, options: OptionsHttp ): Observable<T> {
+  post<T>(url: string, body: FormData, options: OptionsHttp ): Observable<T> {
     return this.httpClient.post<T>(url, body, options) as Observable<T>;
   }
 
-  patch<T>(url: string, body: UpdateDto, options: OptionsHttp ): Observable<T> {
+  patch<T>(url: string, body: FormData, options: OptionsHttp ): Observable<T> {
     return this.httpClient.patch<T>(url, body, options) as Observable<T>;
   }
 
   delete<T>(url: string, options: OptionsHttp): Observable<T> { 
-    return this.httpClient.get<T>(url, options) as Observable<T>;
+    return this.httpClient.delete<T>(url, options) as Observable<T>;
   }
 }
