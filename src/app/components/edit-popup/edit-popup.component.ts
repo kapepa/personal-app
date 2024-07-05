@@ -41,13 +41,7 @@ export class EditPopupComponent {
 
 
   image?: File | string | undefined = undefined;
-  product : UpdateDto = {
-    id: "",
-    name: "",
-    image: "",
-    price: "",
-    rating: 0
-  }
+  product : UpdateDto = this.getEmptyTemplate
 
   ngOnChanges() {
     if (!!this.initProduct) this.product = JSON.parse(JSON.stringify(this.initProduct));
@@ -70,10 +64,21 @@ export class EditPopupComponent {
     this.confirm.emit({ product: this.product, index: this.index });
     this.visible = false;
     this.visibleChange.emit(this.visible);
+    this.product = this.getEmptyTemplate;
   }
 
   onCancel() {
     this.visible = false;
     this.visibleChange.emit(this.visible);
+  }
+
+  get getEmptyTemplate (): UpdateDto {
+    return {
+      id: "",
+      name: "",
+      image: "",
+      price: "",
+      rating: 0
+    }
   }
 }

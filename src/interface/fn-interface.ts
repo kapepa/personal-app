@@ -3,7 +3,7 @@ import { CreateDto } from "../dto/create-dto";
 import { UpdateDto } from "../dto/update-dto";
 
 export interface EditProduct {
-  product: ProductInt, 
+  product: ProductInt,
   index: number,
 }
 

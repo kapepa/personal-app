@@ -1,9 +1,29 @@
 <header
-  class="wrapper row full-center"
+  class="header wrapper column full-center"
 >
   <img
     src="static/oc-logo.svg"
     alt="Logo"
     class="logo"
   />
+  <nav
+    class="row gap-1"
+  >
+    <a
+      class="header__link"
+      routerLink="/home"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      Home
+    </a>
+    <a
+      class="header__link"
+      routerLink="/about-us"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      About us
+    </a>
+  </nav>
 </header>
