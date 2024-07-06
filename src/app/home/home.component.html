@@ -49,6 +49,7 @@
 </div>
 
 <app-edit-popup
+  [isLoader]="isLoader"
   [index]="index"
   [initProduct]="selectedProduct"
   [(visible)]="visibleEditPopup"
@@ -57,6 +58,7 @@
 />
 
 <app-edit-popup
+  [isLoader]="isLoader"
   [(visible)]="visibleAddPopup"
   (confirm)="onConfirmAdd($event)"
   header="Add Product"

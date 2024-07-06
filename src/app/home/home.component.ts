@@ -44,6 +44,8 @@ export class HomeComponent {
   visibleEditPopup: boolean = false;
   visibleAddPopup: boolean = false;
 
+  isLoader: boolean = false;
+
   index: number | undefined = undefined;
   selectedProduct: ProductInt =  {
     id: '',
@@ -93,6 +95,7 @@ export class HomeComponent {
 
   onConfirmEdit ({ product, index }: ConfirmProduct) {
     const form = this.toForm<UpdateDto>(product);
+    this.isLoader = true;
     
     this.productsService.updateProduct(product.id, form)
     .subscribe({
@@ -113,12 +116,14 @@ export class HomeComponent {
       },
       complete: () => {
         this.visibleEditPopup = false;
+        this.isLoader = false
       },
     })
   }
 
   onConfirmAdd ({ product }: ConfirmProduct) {
     const form = this.toForm<UpdateDto>(product);
+    this.isLoader = true;
 
     this.productsService.createProduct(form)
     .subscribe({
@@ -139,6 +144,7 @@ export class HomeComponent {
       },
       complete: () => {
         this.visibleAddPopup = false;
+        this.isLoader = false
       },
     })
   }

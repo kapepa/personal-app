@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ProductInt } from '../../../../types/products-int';
-import { FormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoadImageComponent } from '../load-image/load-image.component';
 import { ConfirmProduct } from '../../../interface/fn-interface';
 import { UpdateDto } from '../../../dto/update-dto';
@@ -24,27 +24,41 @@ import { UpdateDto } from '../../../dto/update-dto';
     InputTextModule,
     InputGroupModule,
     LoadImageComponent,
+    ReactiveFormsModule,
     InputGroupAddonModule,
   ],
   templateUrl: './edit-popup.component.html',
   styleUrl: './edit-popup.component.scss'
 })
 export class EditPopupComponent {
+  constructor(
+    private fb: FormBuilder
+  ) {}
+
   @Input() visible: boolean = false;
   @Input() header!: string;
   @Input() index!: number | undefined;
   @Input() initProduct?: ProductInt
+  @Input() isLoader!: boolean;
 
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() confirm: EventEmitter<ConfirmProduct> = new EventEmitter<ConfirmProduct>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
-
   image?: File | string | undefined = undefined;
-  product : UpdateDto = this.getEmptyTemplate
+  product = this.getEmptyTemplate;
 
   ngOnChanges() {
-    if (!!this.initProduct) this.product = JSON.parse(JSON.stringify(this.initProduct));
+    if (!!this.initProduct) {
+      const { id, image, name, price, rating } = JSON.parse(JSON.stringify(this.initProduct));
+      this.product.patchValue({
+        id, 
+        image, 
+        name, 
+        price, 
+        rating
+      })
+    }
   }
 
   onLayout (event: Event) {
@@ -60,8 +74,9 @@ export class EditPopupComponent {
   }
 
   onConfirm() {
-    if (!!this.image) this.product.image = this.image
-    this.confirm.emit({ product: this.product, index: this.index });
+    if (!!this.image) this.product.get("image")?.setValue(this.image);
+
+    this.confirm.emit({ product: this.product.value, index: this.index });
     this.visible = false;
     this.visibleChange.emit(this.visible);
     this.product = this.getEmptyTemplate;
@@ -72,13 +87,21 @@ export class EditPopupComponent {
     this.visibleChange.emit(this.visible);
   }
 
-  get getEmptyTemplate (): UpdateDto {
-    return {
-      id: "",
-      name: "",
-      image: "",
-      price: "",
-      rating: 0
-    }
+  get getEmptyTemplate (): FormGroup {
+    return this.fb.group({
+      id: [""],
+      image: ["", Validators.required],
+      name: ["", Validators.required],
+      price: ["", Validators.required],
+      rating: [0, Validators.required],
+    })
+  }
+
+  get getImage (): string | File | undefined {
+    return this.product.get("image")?.value
+  }
+
+  get getName () {
+    return this.product.get("name")?.value
   }
 }
