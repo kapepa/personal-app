@@ -7,10 +7,11 @@
     [(visible)]="visible" 
     [style]="{ width: '25rem'  }"
   >
+  <form [formGroup]="product" (ngSubmit)="onConfirm()">
     <div>
       <app-load-image
-        [src]="product.image"
-        [alt]="product.name"
+        [src]="getImage"
+        [alt]="getName"
         (changeImage)="onChangeField($event)"
       />
     </div>
@@ -31,7 +32,7 @@
         class="edit-popup__input"
         pInputText
         placeholder="Product name"
-        [(ngModel)]="product.name"
+        formControlName="name"
       />
       <p-inputGroupAddon
         class="edit-popup__label"
@@ -47,7 +48,7 @@
         class="edit-popup__input"
         pInputText
         placeholder="Product price"
-        [(ngModel)]="product.price"
+        formControlName="price"
       />
       <p-inputGroupAddon
       class="edit-popup__label"
@@ -62,26 +63,29 @@
         class="edit-popup__frame"
         >
         <p-rating 
-          [(ngModel)]="product.rating" 
+          formControlName="rating" 
         />
       </div>
     </div>
     <div 
       class="edit-popup__btns"
     >
-        <p-button 
-          label="Cancel"
-          class="edit-popup__btn"
-          styleClass="button-stretch"
-          severity="secondary" 
-          (click)="onCancel()"
-        />
-        <p-button 
-          label="Save" 
-          class="edit-popup__btn"
-          styleClass="button-stretch"
-          (click)="onConfirm()" 
-        />
+      <p-button 
+        label="Cancel"
+        class="edit-popup__btn"
+        styleClass="button-stretch"
+        severity="secondary" 
+        (click)="onCancel()"
+        [disabled]="isLoader"
+      />
+      <p-button 
+        label="Save" 
+        class="edit-popup__btn"
+        styleClass="button-stretch"
+        (click)="onConfirm()" 
+        [disabled]="isLoader"
+      />
     </div>
+  </form>
   </p-dialog>
 </div>

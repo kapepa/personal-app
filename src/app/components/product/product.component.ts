@@ -8,17 +8,21 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { environment } from '../../../../environment';
 import { CommonModule } from '@angular/common';
 import { DeleteProduct, EditProduct } from '../../../interface/fn-interface';
+import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
+import { PricePipe } from '../../pipes/price.pipe';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [
+    PricePipe,
     FormsModule,
     RatingModule,
     ButtonModule,
     CommonModule,
     SkeletonModule,
     NgOptimizedImage,
+    TruncateNamePipe,
   ],
   providers: [
     {
